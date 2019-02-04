@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) %> | Ruby on Rails </title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "/custom.css" %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+        <nav>
+          <ul class="topnav">
+            <li class="items"><%= link_to "Logo", root_path, id: "logo" %></li>
+            <li class="items"><%= link_to "Home",   root_path %></li>
+            <% if logged_in? %>
+            <% if is_admin? %>
+            <li class="items"><%= link_to "Create a Flight",   flights_path %></li>
+            <% else %>
+            <li class="items"><%= link_to "Book a Flight",   flights_path %></li>
+            <%end%>
+              <li class="dropdown rightitems">
+                <a href="javascript:void(0)" class="dropbtn " data-toggle="dropdown">
+                  Account </a>
+                  <div class="dropdown-content">
+                    <%= link_to "Profile", current_user %>
+                    <%= link_to "Settings", edit_user_path(current_user) %>
+                    <%= link_to "Log out", logout_path, method: :delete %>
+                  </div>
+            </li>
+
+        <% else %>
+          <li class="rightitems"><%= link_to "Log in", login_path %></li>
+        <% end %>
+        <li class="rightitems"><%= link_to "Help",   help_path %></li>
+      </ul>
+        </nav>
+
+        <% flash.each do |message_type, message| %>
+       <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+     <% end %>
+
+    </header>
+
+    <%= yield %>
+    <%= debug(params) if Rails.env.development? %>
+  </body>
+</html>

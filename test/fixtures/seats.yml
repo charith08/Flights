@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  class_id: 1
+  spnr: MyString
+  row: 1
+  seats_in_row: 1
+  class_pnr: MyString
+
+two:
+  class_id: 1
+  spnr: MyString
+  row: 1
+  seats_in_row: 1
+  class_pnr: MyString

@@ -1,0 +1,9 @@
+<% provide(:title, "Home") %>
+<h1>Welcome to the Flight App</h1>
+
+
+<% if logged_in? %>
+<h1> Home page </h1>
+<% else %>
+<%= link_to "Sign up now!", signup_path, class: "button" %>
+<% end %>

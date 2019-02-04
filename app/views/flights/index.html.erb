@@ -1,0 +1,44 @@
+
+
+<h1>Flights</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>From</th>
+      <th>Destination</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <% if is_admin? %>
+      <th>Fpnr</th>
+      <% end %>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @flights.each do |flight| %>
+      <tr>
+        <td><%= flight.name %><%= " " %><%= flight.ftype %></td>
+        <td><%= flight.from %></td>
+        <td><%= flight.destination %></td>
+        <td><%= readable_time(flight.start_time) %></td>
+        <td><%= readable_time(flight.end_time) %></td>
+        <% if is_admin? %>
+        <td><%= flight.fpnr %></td>
+        <td><%= link_to 'Show', flight %></td>
+        <td><%= link_to 'Edit', edit_flight_path(flight) %></td>
+        <td><%= link_to 'Destroy', flight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <td><%= link_to 'Book this Flight', '#' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if is_admin? %>
+<%= link_to 'New Flight', new_flight_path %>
+<% end %>

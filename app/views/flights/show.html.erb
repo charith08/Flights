@@ -1,0 +1,64 @@
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @flight.name %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @flight.ftype %>
+</p>
+
+<p>
+  <strong>From:</strong>
+  <%= @flight.from %>
+</p>
+
+<p>
+  <strong>Destination:</strong>
+  <%= @flight.destination %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @flight.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @flight.end_time %>
+</p>
+
+<p>
+  <strong>Fpnr:</strong>
+  <%= @flight.fpnr %>
+</p>
+
+<% puts 'aaaaaaaaaaaaa' %>
+<% puts @first%>
+<% puts 'aaaaaaaaaaaaa' %>
+
+
+  <% if @first %>
+    <%= render 'firsts/show' %>
+     <% @first.row.times do |i| %>
+             3
+             <br>
+
+             <% @first.seats_in_row.times do |i| %>
+                     2
+                     <br>
+             <% end %>
+     <% end %>
+
+  <% else %>
+  <%= link_to 'Create First class', new_flight_first_path(@flight) %>
+  <%end%>
+
+
+
+
+
+<%= link_to 'Edit', edit_flight_path(@flight) %> |
+<%= link_to 'Back', flights_path %>
