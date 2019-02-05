@@ -2,12 +2,7 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @flight.name %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @flight.ftype %>
+  <%= @flight.name %> <%= @flight.ftype %>
 </p>
 
 <p>
@@ -22,43 +17,65 @@
 
 <p>
   <strong>Start time:</strong>
-  <%= @flight.start_time %>
+  <%= readable_time(@flight.start_time) %>
 </p>
 
 <p>
   <strong>End time:</strong>
-  <%= @flight.end_time %>
+  <%= readable_time(@flight.end_time) %>
 </p>
 
-<p>
-  <strong>Fpnr:</strong>
-  <%= @flight.fpnr %>
-</p>
+
 
 <% puts 'aaaaaaaaaaaaa' %>
 <% puts @first%>
+<% puts @economy %>
+<% puts @business %>
 <% puts 'aaaaaaaaaaaaa' %>
+
+
 
 
   <% if @first %>
     <%= render 'firsts/show' %>
-     <% @first.row.times do |i| %>
-             3
-             <br>
+    <br>
 
-             <% @first.seats_in_row.times do |i| %>
-                     2
-                     <br>
-             <% end %>
-     <% end %>
+  <!--  <%= link_to 'Create Seats', flight_first_path(@flight) %> -->
+          <% if @fseat.count>0 %>
 
+          <% else %>
+               <%= link_to 'Confirm Seat Config for First Class', new_flight_first_seat_path(@flight, @first) %>
+          <% end %>
   <% else %>
   <%= link_to 'Create First class', new_flight_first_path(@flight) %>
+  <br>
   <%end%>
+<br>
 
 
+ <% if @business %>
+    <%= render 'businesses/show' %>
+    <% if @bseat.count>0 %>
 
+    <% else %>
+         <%= link_to 'Confirm Seat Config for Business class', createbusinessseat_path(@flight, @business) %>
+    <% end %>
+<% else %>
+    <%= link_to 'Create Business class', new_flight_business_path(@flight) %>
+<% end %>
+<br>
 
+<% if @economy %>
+   <%= render 'economies/show' %>
+   <% if @eseat.count>0 %>
 
-<%= link_to 'Edit', edit_flight_path(@flight) %> |
-<%= link_to 'Back', flights_path %>
+   <% else %>
+        <%= link_to 'Confirm Seat Config for Economy class', new_flight_economy_seat_path(@flight, @economy) %>
+   <% end %>
+<% else %>
+   <%= link_to 'Create Economy class', new_flight_economy_path(@flight) %>
+<% end %>
+
+<br>
+<%= render 'seats/index' %>
+<%= link_to 'Go back to flights', flights_path %>

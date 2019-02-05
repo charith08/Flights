@@ -1,0 +1,53 @@
+<%= stylesheet_link_tag "/custom.css" %>
+
+<div class="seats">
+<% if @fseat %>
+<h2>First Class Seats</h2>
+
+<% @y=0 %>
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th> ID</th>
+      <th> Number </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fseat.each do |seat| %>
+    <% @y=@y+1 %>
+      <tr>
+        <td><%= seat.class_id %></td>
+        <td><%= seat.id %></td>
+        <td><%= @y %></td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
+
+<% @x=0 %>
+<% @fseat.each do |seat| %>
+     <% @x = @x+1 %>
+    <%= @x %>
+    <% if(@x % @first.seats_in_row == 0) %>
+      <br>
+    <% end%>
+<% end %>
+
+
+<% @first.row.times do |i| %>
+        <% @first.seats_in_row.times do |i| %>
+        <% end %>
+<% end %>
+
+<% end %>
+<%if @bseat %>
+<%= render 'seats/bindex' %>
+<%end%>
+<%if @eseat %>
+<%= render 'seats/eindex' %>
+<%end%>
+</div>

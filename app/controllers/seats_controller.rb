@@ -10,15 +10,23 @@ class SeatsController < ApplicationController
   # GET /seats/1
   # GET /seats/1.json
   def show
-    @first = first.find(params[:class_id])
-    @seat = @first.seat.find(params[:id])
+    @first = first.find(params[:first_id])
+    @seat = @first.seats.find(params[:id])
 
   end
 
   # GET /seats/new
   def new
-    @first = First.find(params[:class_id])
-    @seat = @first.seats.new
+    if @first
+     @first = First.find(params[:first_id])
+    end
+    if @business
+    @business = Business.find(params[:business_id])
+    end
+    if @economy
+      @economy = Economy.find(params[:economy_id])
+    end
+    @seat = Seat.new
   end
 
   # GET /seats/1/edit
@@ -28,12 +36,38 @@ class SeatsController < ApplicationController
   # POST /seats
   # POST /seats.json
   def create
-    @first = First.find(params[:class_id])
-    @seat = @first.seats.create(seat_params)
+    if @first
+    @first = First.find(params[:first_id])
+    @first.row.times do |i|
+      @first.seats_in_row.times do |i|
+        @seat = @first.seats.create(seat_params)
+      end
+     end
+    end
+
+    if @business
+    @business = Business.find(params[:business_id])
+
+     @business.row.times do |i|
+       @business.seats_in_row.times do |i|
+         @seat = @business.seats.create(seat_params)
+       end
+      end
+    end
+
+    if @economy
+     @economy = Economy.find(params[:economy_id])
+
+      @economy.row.times do |i|
+        @economy.seats_in_row.times do |i|
+         @seat =  @economy.seats.create(seat_params)
+       end
+      end
+    end
 
     respond_to do |format|
       if @seat.save
-        format.html { redirect_to @seat, notice: 'Seat was successfully created.' }
+        format.html { redirect_to flights_path(@flight), notice: 'Seat was successfully created.' }
         format.json { render :show, status: :created, location: @seat }
       else
         format.html { render :new }
@@ -74,6 +108,6 @@ class SeatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seat_params
-      params.require(:seat).permit(:class_id, :spnr, :row, :seats_in_row, :class_pnr)
+      params.require(:seat).permit(:class_id, :first_id, :spnr, :class_pnr)
     end
 end

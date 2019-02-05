@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Row:</strong>
+  <%= @business.row %>
+</p>
+
+<p>
+  <strong>Seats in row:</strong>
+  <%= @business.seats_in_row %>
+</p>
+
+<%= link_to 'Edit', edit_business_path(@business) %> |
+<%= link_to 'Back', businesses_path %>

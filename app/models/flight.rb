@@ -1,5 +1,7 @@
 class Flight < ApplicationRecord
   has_one :first
+  has_one :business
+  has_one :economy
 
   before_save :generate_pnr
   validates :name, presence: true

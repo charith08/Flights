@@ -3,10 +3,26 @@ Rails.application.routes.draw do
 
 
 
+  resources :economies
+  resources :businesses
   resources :firsts
 
   resources :flights do
-    resources :firsts
+    resources :firsts do
+      resources :seats
+    end
+  end
+
+  resources :flights do
+    resources :businesses do
+      resources :seats
+    end
+  end
+
+  resources :flights do
+    resources :economies do
+      resources :seats
+    end
   end
 
 
@@ -23,7 +39,10 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get '/createnewfirst', to: 'firsts#new'
   post '/createnewfirst', to: 'firsts#create'
-  post '/flights/:flight_id/firsts', to: 'firsts#create'
+  get 'createfirstseat', to: 'seats#new'
+  post 'createfirstseat', to: 'seats#create'
+  get 'createbusinessseat', to: 'seats#bnew'
+  post 'createbusinessseat', to: 'seats#bcreate'
   #get '/activate',   to: 'account_activations#activate'
   resources :users
   resources :account_activations, only: [:edit]

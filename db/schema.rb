@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_02_080430) do
+ActiveRecord::Schema.define(version: 2019_02_05_071517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "businesses", force: :cascade do |t|
+    t.integer "row"
+    t.integer "seats_in_row"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "flight_id"
+  end
+
+  create_table "economies", force: :cascade do |t|
+    t.integer "row"
+    t.integer "seats_in_row"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "flight_id"
+  end
 
   create_table "firsts", force: :cascade do |t|
     t.integer "row"
@@ -39,11 +55,12 @@ ActiveRecord::Schema.define(version: 2019_02_02_080430) do
   create_table "seats", force: :cascade do |t|
     t.integer "class_id"
     t.string "spnr"
-    t.integer "row"
-    t.integer "seats_in_row"
     t.string "class_pnr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "first_id"
+    t.integer "business_id"
+    t.integer "economy_id"
   end
 
   create_table "users", force: :cascade do |t|

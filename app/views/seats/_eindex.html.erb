@@ -1,0 +1,42 @@
+<% if @eseat %>
+<h2>Economy Class Seats</h2>
+
+<% @y=0 %>
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th> ID</th>
+      <th> Number </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @eseat.each do |seat| %>
+    <% @y=@y+1 %>
+      <tr>
+        <td><%= seat.class_id %></td>
+        <td><%= seat.id %></td>
+        <td><%= @y %></td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
+
+<% @x=0 %>
+<% @eseat.each do |seat| %>
+     <% @x = @x+1 %>
+    <%= @x %>
+    <% if(@x % @economy.seats_in_row == 0) %>
+      <br>
+    <% end%>
+<% end %>
+
+
+<% @business.row.times do |i| %>
+        <% @business.seats_in_row.times do |i| %>
+        <% end %>
+<% end %>
+<% end %>

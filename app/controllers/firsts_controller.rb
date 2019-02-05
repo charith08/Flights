@@ -11,7 +11,7 @@ class FirstsController < ApplicationController
   # GET /firsts/1.json
   def show
     @flight = Flight.find(params[:flight_id])
-    @first = @flight.first.find(params[:id])
+    @first = @flight.first
   end
 
   # GET /firsts/new
@@ -33,7 +33,7 @@ class FirstsController < ApplicationController
     @first = First.create(first_params)
     @flight.first = @first
 
-
+    puts @first.flight_id
     puts 'aaaaaaaaaa'
 
     respond_to do |format|

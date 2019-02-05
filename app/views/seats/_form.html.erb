@@ -1,4 +1,8 @@
-<%= form_for(@seat, url: createfirstseat_path(:flight_id => @flight.id, :class_id => @first.id)) do |form| %>
+<% puts @first %>
+<% puts 'aaaaaaaaaa'%>
+ <% if @first %>
+<%= form_for(@seat, url: flight_first_seats_path) do |form| %>
+
 
   <% if seat.errors.any? %>
     <div id="error_explanation">
@@ -12,16 +16,63 @@
     </div>
   <% end %>
 
-
-
-  <div class="field">
-      <%= form.label :class_id %>
-      <%= form.number_field :class_id %>
-    </div>
+    <%= form.hidden_field :class_id, value: @first.id %>
+    <%= form.hidden_field :class_pnr, value: @first.fcpnr %>
 
 
 
   <div class="actions">
     <%= form.submit %>
   </div>
+  <% end %>
+
+
+  <% elsif @business %>
+  <%= form_for(@seat, url: flight_business_seats_path) do |form| %>
+
+
+    <% if seat.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(seat.errors.count, "error") %> prohibited this seat from being saved:</h2>
+
+        <ul>
+        <% seat.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <%= form.hidden_field :class_id, value: @business.id %>
+
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+    <% end %>
+
+    <% elsif @economy %>
+    <%= form_for(@seat, url: flight_economy_seats_path) do |form| %>
+
+
+      <% if seat.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(seat.errors.count, "error") %> prohibited this seat from being saved:</h2>
+
+          <ul>
+          <% seat.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+    <%= form.hidden_field :class_id, value: @economy.id %>
+
+
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+      <% end %>
+
 <% end %>

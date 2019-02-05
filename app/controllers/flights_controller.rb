@@ -14,6 +14,17 @@ class FlightsController < ApplicationController
   def show
     @flights = Flight.all
     @first = @flight.first
+    @business = @flight.business
+    @economy = @flight.economy
+    if @first
+      @fseat = @first.seats
+    end
+    if @business
+      @bseat = @business.seats
+    end
+    if @economy
+      @eseat = @economy.seats
+    end
   end
 
   # GET /flights/new
