@@ -1,0 +1,75 @@
+
+
+<% if (!@booking.business_id.nil? ) %>
+<strong><p>Business Class</p></strong>
+<% elsif (!@booking.economy_id.nil? ) %>
+<strong><p>Economy Class</p></strong>
+<% elsif (!@booking.first_id.nil? ) %>
+<strong><p>First Class</p></strong>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+
+<% @x=1 %>
+<% @y=0 %>
+
+  <tbody>
+    <% @seats.each do |seat| %>
+
+      <% if seat.available? %>
+        <% if (@booking.selectseats.size < @booking.seats) %>
+           <div class="seatboxtrue">
+           <%=link_to @x , seatselect_path(:seat_id => seat.id, :booking_id => @booking.id), remote: true, onclick:"this.classList.toggle('changecolor')",class:"seat", id:"counter" %>
+        </div>
+        <% else %>
+          <%= @x %>
+        <%end%>
+
+        <% else %>
+        <div class="seatboxfalse">
+          <%= @x %>
+       </div>
+
+      <%end%>
+
+        <% if @business %>
+            <% if (@x % @business.seats_in_row == 0) %>
+               <br>
+            <%end%>
+            <% if (@x % 3 == 0 && @x % 6 != 0) %>
+               <div class="seatbreak"> </div>
+            <%end%>
+        <% elsif @economy %>
+            <% if (@x % @economy.seats_in_row == 0) %>
+               <br>
+               <% @y= @y + @economy.seats_in_row %>
+                <%end%>
+                <% if (@economy.seats_in_row == 10) %>
+               <% if ((@y -@x) % 3 == 0 && (@y -@x) % 6 != 0 && (@y -@x) % 9 != 0) || (@y -@x) % 7 ==0 %>
+                  <div class="seatbreak"> </div>
+               <%end%>
+               <% end%>
+        <% elsif @first%>
+            <% if (@x % @first.seats_in_row == 0) %>
+               <br>
+            <%end%>
+        <%end%>
+            <% @x = @x+1 %>
+
+
+
+    <% end %>
+
+  </tbody>
+</table>
+
+<%=link_to "Confirm", confirm_path(:booking_id=>@booking.id), class:"button"%>
+
+
+<script>
+
+</script>

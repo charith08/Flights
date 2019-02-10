@@ -1,7 +1,7 @@
 class FlightsController < ApplicationController
   before_action :set_flight, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user
-  #before_action :is_admin, only: [:new, :edit, :create, :update, :destroy]
+  #before_action :is_admin?, only: [:new, :edit, :create, :update, :destroy]
   include SessionsHelper
   # GET /flights
   # GET /flights.json
@@ -29,7 +29,11 @@ class FlightsController < ApplicationController
 
   # GET /flights/new
   def new
+    if is_admin?
     @flight = Flight.new
+  else
+    redirect_to root_path
+  end
   end
 
   # GET /flights/1/edit
@@ -39,6 +43,8 @@ class FlightsController < ApplicationController
   # POST /flights
   # POST /flights.json
   def create
+
+    if is_admin?
     @flight = Flight.new(flight_params)
 
     respond_to do |format|
@@ -50,6 +56,9 @@ class FlightsController < ApplicationController
         format.json { render json: @flight.errors, status: :unprocessable_entity }
       end
     end
+  else
+    redirect_to root_path
+  end
   end
 
   # PATCH/PUT /flights/1
@@ -69,11 +78,15 @@ class FlightsController < ApplicationController
   # DELETE /flights/1
   # DELETE /flights/1.json
   def destroy
+    if is_admin?
     @flight.destroy
     respond_to do |format|
       format.html { redirect_to flights_url, notice: 'Flight was successfully destroyed.' }
       format.json { head :no_content }
     end
+  else
+    redirect_to root_path
+  end
   end
 
   private
@@ -84,7 +97,7 @@ class FlightsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def flight_params
-      params.require(:flight).permit(:name, :ftype, :from, :destination, :start_time, :end_time, :fpnr)
+      params.require(:flight).permit(:name, :ftype, :from, :destination, :start_time, :end_time, :base_price)
     end
 
 

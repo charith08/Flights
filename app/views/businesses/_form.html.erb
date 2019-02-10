@@ -21,6 +21,8 @@
     <%= form.number_field :seats_in_row %>
   </div>
 
+  <%= form.hidden_field :business_price, value: (@flight.base_price * 0.1) + @flight.base_price  %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

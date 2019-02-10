@@ -1,0 +1,78 @@
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @booking.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @booking.email %>
+</p>
+
+<p>
+  <strong>Flight Name:</strong>
+  <%= get_flight_name(@booking.flight_id)  %>
+  <%= get_flight_lname(@booking.flight_id) %>
+</p>
+
+
+<p>
+  <strong>Seats:</strong>
+  <%= @booking.seats %>
+</p>
+
+
+<% if @booking.first_id %>
+<p>
+  <strong>Class:</strong>
+  First Class
+</p>
+<p>
+  <strong>Price in rupees:</strong>
+  <%= (@booking.seats) * (@first.first_price) %>
+</p>
+<% end %>
+
+<% if @booking.business_id %>
+<p>
+  <strong>Class:</strong>
+   Business Class
+</p>
+<p>
+  <strong>Price in rupees:</strong>
+  <%= (@booking.seats) * (@business.business_price) %>
+</p>
+<% end %>
+
+<% if @booking.economy_id %>
+<p>
+  <strong>Class:</strong>
+   Economy Class
+
+   <p>
+     <strong>Price in rupees:</strong>
+     <%= (@booking.seats) * (@economy.economy_price) %>
+   </p>
+</p>
+
+
+<% end %>
+
+<p>
+  <strong>Pnr:</strong>
+  <%= @booking.pnr %>
+</p>
+
+<% if @seats %>
+<p>
+  <strong>Seat No:</strong>
+  <% @seats.order("id").each do |s| %>
+    <%= s.seatno%> <%= ','%>
+  <% end %>
+</p>
+<% else %>
+    <p> Book Seats with the provided PNR </p>
+<% end%>
+
+<%= link_to 'Back', bookings_path %>

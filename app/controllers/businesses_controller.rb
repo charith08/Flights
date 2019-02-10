@@ -31,6 +31,14 @@ class BusinessesController < ApplicationController
     @business = Business.create(business_params)
     @flight.business = @business
 
+    @x=1
+    @business.row.times do |i|
+      @business.seats_in_row.times do |i|
+        @seat = @business.seats.create(seatno: @x)
+        @x=@x+1
+      end
+     end
+
 
     respond_to do |format|
       if @business.save
@@ -75,6 +83,6 @@ class BusinessesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def business_params
-      params.require(:business).permit(:row, :seats_in_row)
+      params.require(:business).permit(:row, :seats_in_row, :business_price)
     end
 end

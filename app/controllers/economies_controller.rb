@@ -31,6 +31,14 @@ class EconomiesController < ApplicationController
     @economy = Economy.create(economy_params)
     @flight.economy = @economy
 
+    @x=1
+    @economy.row.times do |i|
+      @economy.seats_in_row.times do |i|
+       @seat =  @economy.seats.create(seatno: @x)
+       @x=@x+1
+     end
+    end
+
     respond_to do |format|
       if @economy.save
         format.html { redirect_to @flight, notice: 'Economy was successfully created.' }
@@ -74,6 +82,6 @@ class EconomiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def economy_params
-      params.require(:economy).permit(:row, :seats_in_row)
+      params.require(:economy).permit(:row, :seats_in_row, :economy_price)
     end
 end

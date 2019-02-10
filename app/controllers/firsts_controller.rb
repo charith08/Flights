@@ -33,9 +33,14 @@ class FirstsController < ApplicationController
     @first = First.create(first_params)
     @flight.first = @first
 
-    puts @first.flight_id
-    puts 'aaaaaaaaaa'
+    @x=1
+    @first.row.times do |i|
+      @first.seats_in_row.times do |i|
+        @seat = @first.seats.create(seatno: @x)
+        @x=@x+1
+      end
 
+     end
     respond_to do |format|
       if @first.save
         format.html { redirect_to @flight, notice: 'Firstclass is created.' }
@@ -79,6 +84,6 @@ class FirstsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def first_params
-      params.require(:first).permit(:row, :seats_in_row, :fcpnr)
+      params.require(:first).permit(:row, :seats_in_row, :first_price)
     end
 end

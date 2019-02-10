@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
 
 
+  resources :bookings
+
   resources :economies
   resources :businesses
   resources :firsts
@@ -25,6 +27,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :flights do
+    resources :bookings
+  end
+
+
 
 
   get 'password_resets/new'
@@ -44,6 +51,16 @@ Rails.application.routes.draw do
   get 'createbusinessseat', to: 'seats#bnew'
   post 'createbusinessseat', to: 'seats#bcreate'
   #get '/activate',   to: 'account_activations#activate'
+  get '/dashboard', to: 'bookings#userbooking'
+
+  get '/bookseat', to: 'bookings#bookseat'
+  post '/bookseat', to: 'bookings#bookseat'
+
+  get '/seatselect', to: 'bookings#seatselect'
+  post '/seatselect', to: 'bookings#seatselect'
+  
+  get '/confirm', to: 'bookings#confirm'
+
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]

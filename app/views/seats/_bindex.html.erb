@@ -1,33 +1,11 @@
 <h2>Business Class Seats</h2>
 
-<% @y=0 %>
-<table>
-  <thead>
-    <tr>
-      <th>Class</th>
-      <th> ID</th>
-      <th> Number </th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @bseat.each do |seat| %>
-    <% @y=@y+1 %>
-      <tr>
-        <td><%= seat.class_id %></td>
-        <td><%= seat.id %></td>
-        <td><%= @y %></td>
-      </tr>
-    <% end %>
-
-  </tbody>
-</table>
 
 <% @x=0 %>
 <% @bseat.each do |seat| %>
      <% @x = @x+1 %>
-    <%= @x %>
+   <div class="seatmini">  <%= @x %> </div>
     <% if(@x % @business.seats_in_row == 0) %>
       <br>
     <% end%>

@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_05_071517) do
+ActiveRecord::Schema.define(version: 2019_02_10_125115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "pnr"
+    t.integer "seats"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "flight_id"
+    t.integer "user_id"
+    t.integer "first_id"
+    t.integer "business_id"
+    t.integer "economy_id"
+    t.boolean "booked", default: false
+  end
 
   create_table "businesses", force: :cascade do |t|
     t.integer "row"
@@ -21,6 +36,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_071517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "flight_id"
+    t.integer "business_price"
   end
 
   create_table "economies", force: :cascade do |t|
@@ -29,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_071517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "flight_id"
+    t.integer "economy_price"
   end
 
   create_table "firsts", force: :cascade do |t|
@@ -38,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_071517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "flight_id"
+    t.integer "first_price"
   end
 
   create_table "flights", force: :cascade do |t|
@@ -50,6 +68,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_071517) do
     t.string "fpnr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "base_price"
   end
 
   create_table "seats", force: :cascade do |t|
@@ -61,6 +80,18 @@ ActiveRecord::Schema.define(version: 2019_02_05_071517) do
     t.integer "first_id"
     t.integer "business_id"
     t.integer "economy_id"
+    t.boolean "available", default: true
+    t.integer "seat_price"
+    t.integer "booking_id"
+    t.integer "seatno"
+  end
+
+  create_table "selectseats", force: :cascade do |t|
+    t.integer "seatnumber"
+    t.bigint "booking_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_selectseats_on_booking_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -79,4 +110,5 @@ ActiveRecord::Schema.define(version: 2019_02_05_071517) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "selectseats", "bookings"
 end

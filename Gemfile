@@ -8,7 +8,7 @@ gem 'rails', '~> 5.2.2'
 gem 'bcrypt', '~>3.1.12'
 gem 'postmark'
 gem 'postmark-rails'
-
+gem 'jquery-rails'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server

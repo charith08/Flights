@@ -1,5 +1,5 @@
 
-
+<% if is_admin? %>
 <p>
   <strong>Name:</strong>
   <%= @flight.name %> <%= @flight.ftype %>
@@ -55,27 +55,21 @@
 
  <% if @business %>
     <%= render 'businesses/show' %>
-    <% if @bseat.count>0 %>
-
-    <% else %>
-         <%= link_to 'Confirm Seat Config for Business class', createbusinessseat_path(@flight, @business) %>
-    <% end %>
 <% else %>
     <%= link_to 'Create Business class', new_flight_business_path(@flight) %>
+    <br>
 <% end %>
 <br>
 
 <% if @economy %>
    <%= render 'economies/show' %>
-   <% if @eseat.count>0 %>
-
-   <% else %>
-        <%= link_to 'Confirm Seat Config for Economy class', new_flight_economy_seat_path(@flight, @economy) %>
-   <% end %>
 <% else %>
    <%= link_to 'Create Economy class', new_flight_economy_path(@flight) %>
 <% end %>
 
 <br>
 <%= render 'seats/index' %>
+
+<% else %>
 <%= link_to 'Go back to flights', flights_path %>
+<% end %>

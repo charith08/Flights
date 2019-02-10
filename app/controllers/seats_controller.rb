@@ -4,28 +4,40 @@ class SeatsController < ApplicationController
   # GET /seats
   # GET /seats.json
   def index
-    @seats = Seat.all
+    @booking = Booking.where(:pnr => params[:pnr])
+    puts @booking
+    puts 'aaaaaaaaaaaaaaaaaaa'
+    if (@booking.first.economy_id == nil && @booking.first.first_id == nil)
+       @seats = Seat.where(business_id:params[:business_id])
+    elsif (@booking.first.business_id == nil && @booking.first.first_id == nil)
+       puts params[:economy_id]
+       @seats = Seat.where(:economy_id =>params[:economy_id])
+     elsif (@booking.first.business_id == nil && @booking.first.economy_id == nil)
+        @x = @booking.first.first_id
+        @seats = Seat.where(:first_id =>params[:first_id])
+    end
   end
 
   # GET /seats/1
   # GET /seats/1.json
   def show
-    @first = first.find(params[:first_id])
-    @seat = @first.seats.find(params[:id])
+    if @first
+      @first = first.find(params[:first_id])
+      @fseat = @first.seats.find(params[:id])
+  end
+    if @business
+      @business = business.find(params[:business_id])
+      @bseat = @first.seats.find(params[:id])
+  end
+    if @economy
+      @economy = economy.find(params[:economy_id])
+      @eseat = @first.seats.find(params[:id])
+  end
 
   end
 
   # GET /seats/new
   def new
-    if @first
-     @first = First.find(params[:first_id])
-    end
-    if @business
-    @business = Business.find(params[:business_id])
-    end
-    if @economy
-      @economy = Economy.find(params[:economy_id])
-    end
     @seat = Seat.new
   end
 
@@ -36,34 +48,7 @@ class SeatsController < ApplicationController
   # POST /seats
   # POST /seats.json
   def create
-    if @first
-    @first = First.find(params[:first_id])
-    @first.row.times do |i|
-      @first.seats_in_row.times do |i|
-        @seat = @first.seats.create(seat_params)
-      end
-     end
-    end
 
-    if @business
-    @business = Business.find(params[:business_id])
-
-     @business.row.times do |i|
-       @business.seats_in_row.times do |i|
-         @seat = @business.seats.create(seat_params)
-       end
-      end
-    end
-
-    if @economy
-     @economy = Economy.find(params[:economy_id])
-
-      @economy.row.times do |i|
-        @economy.seats_in_row.times do |i|
-         @seat =  @economy.seats.create(seat_params)
-       end
-      end
-    end
 
     respond_to do |format|
       if @seat.save
@@ -108,6 +93,6 @@ class SeatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seat_params
-      params.require(:seat).permit(:class_id, :first_id, :spnr, :class_pnr)
+      params.require(:seat).permit(:class_id, :first_id, :spnr, :class_pnr, :seatno)
     end
 end

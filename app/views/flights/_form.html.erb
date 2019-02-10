@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  
+
 
   <div class="field">
     <%= form.label :name %>
@@ -19,7 +19,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :ftype %>
+    <%= form.label :flight_type %>
     <%= form.text_field :ftype %>
   </div>
 
@@ -41,6 +41,11 @@
   <div class="field">
     <%= form.label :end_time %>
     <%= form.datetime_select :end_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :base_price %>
+    <%= form.text_field :base_price %>
   </div>
 
 
