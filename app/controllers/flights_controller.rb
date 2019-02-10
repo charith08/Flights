@@ -9,6 +9,12 @@ class FlightsController < ApplicationController
     @flights = Flight.all
   end
 
+  def findflight
+    @from = params[:from]
+    puts @from
+    puts '333333333333'
+    @flights = Flight.where(:from => params[:from], :destination => params[:destination])
+  end
   # GET /flights/1
   # GET /flights/1.json
   def show

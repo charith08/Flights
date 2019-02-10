@@ -1,9 +1,20 @@
 <% provide(:title, "Home") %>
 <h1>Welcome to the Flight App</h1>
-
+<br><br>
 
 <% if logged_in? %>
-<h1> Home page </h1>
+
+
+<%= form_tag(findflight_path, method: :get) do %>
+   <strong><p> Enter Source </p></strong>
+   <%= text_field_tag(:from, params[:from]) %>
+
+   <strong><p> Enter Destination </p></strong>
+   <%= text_field_tag(:destination, params[:destination]) %>
+   <%= submit_tag ("Search") %>
+ <% end %>
+
+
 <% else %>
 <%= link_to "Sign up now!", signup_path, class: "button" %>
 <% end %>

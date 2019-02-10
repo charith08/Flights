@@ -14,12 +14,12 @@
         <nav>
           <ul class="topnav">
             <li class="items"><%= link_to "Logo", root_path, id: "logo" %></li>
-            <li class="items"><%= link_to "Home",   root_path %></li>
+            <li class="items"><%= link_to "Find Flight",   root_path %></li>
             <% if logged_in? %>
             <% if is_admin? %>
             <li class="items"><%= link_to "Manage Flights",   flights_path %></li>
             <% else %>
-            <li class="items"><%= link_to "Book a Flight",   flights_path %></li>
+            <li class="items"><%= link_to "All Flighs",   flights_path %></li>
             <li class="items"><%= link_to "My Bookings",   bookings_path %></li>
             <%end%>
               <li class="dropdown rightitems">

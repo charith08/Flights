@@ -53,12 +53,15 @@ Rails.application.routes.draw do
   #get '/activate',   to: 'account_activations#activate'
   get '/dashboard', to: 'bookings#userbooking'
 
+  get '/findflight', to: 'flights#findflight'
+  post '/findflight', to: 'flights#findflight'
+  
   get '/bookseat', to: 'bookings#bookseat'
   post '/bookseat', to: 'bookings#bookseat'
 
   get '/seatselect', to: 'bookings#seatselect'
   post '/seatselect', to: 'bookings#seatselect'
-  
+
   get '/confirm', to: 'bookings#confirm'
 
   resources :users
