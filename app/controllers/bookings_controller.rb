@@ -84,9 +84,9 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   def new
     @flight = Flight.find(params[:flight_id])
-    @first = @flight.first
-    @business = @flight.business
-    @economy = @flight.economy
+    @business1 = Business.where(flight_id: @flight.id).first
+   @economy1 = Economy.where(flight_id: @flight.id).first
+   @first1 = First.where(flight_id: @flight.id).first
     @booking = Booking.new
   end
 
@@ -99,6 +99,9 @@ class BookingsController < ApplicationController
   def create
     @flight = Flight.find(params[:flight_id])
     @booking = @flight.bookings.create(booking_params)
+    @business1 = Business.where(flight_id: @flight.id).first
+   @economy1 = Economy.where(flight_id: @flight.id).first
+   @first1 = First.where(flight_id: @flight.id).first
     @y = @booking.seats
     respond_to do |format|
       if @booking.save

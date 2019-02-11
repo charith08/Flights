@@ -30,26 +30,26 @@
   <div class="field">
   <div class="flightclass">
     <%= form.label :'First class' %>
-    <%= @first.num_of_seats %>  seats available
-    <% if (@business.num_of_seats <=0 )%>
+    <%= @first1.num_of_seats %>  seats available
+    <% if (@first1.num_of_seats <=0 )%>
     <% else %>
-    <%= form.radio_button( :first_id, @first.id ) %>
+    <%= form.radio_button( :first_id, @first1.id ) %>
     <% end %>
   </div>
   <div class="flightclass">
     <%= form.label :'Business class' %>
-    <%= @business.num_of_seats %>  seats available
-    <% if (@business.num_of_seats <=0 )%>
+    <%= @business1.num_of_seats %>  seats available
+    <% if (@business1.num_of_seats <=0 )%>
     <% else %>
-    <%= form.radio_button( :business_id, @business.id )  %>
+    <%= form.radio_button( :business_id, @business1.id)  %>
     <% end %>
   </div>
    <div class="flightclass">
     <%= form.label :'Economy class' %>
-    <%= @economy.num_of_seats %>  seats available
-    <% if (@business.num_of_seats <=0 )%>
+    <%= @economy1.num_of_seats %>  seats available
+    <% if (@economy1.num_of_seats <=0 )%>
     <% else %>
-    <%= form.radio_button( :economy_id, @economy.id ) %>
+    <%= form.radio_button( :economy_id, @economy1.id ) %>
       <% end %>
   </div>
 

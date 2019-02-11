@@ -11,17 +11,31 @@ class Booking < ApplicationRecord
 
 
   def restore
-        seats = Seat.where(:booking_id => id)
-        seats.each do |seat|
+        seats1 = Seat.where(:booking_id => id)
+        seats1.each do |seat|
           seat.update_attributes(booking_id: nil,available: true)
         end
      	end
 
 
     def validseat
-      if(seats <= 0)
+
+      if(seats == 0 || seats ==nil )
         errors.add(:seats, "Number of seats should be atleast 1")
       end
+
+      if(flight.first.num_of_seats < seats)
+        errors.add(:seats, "Seats exceeding the availability")
+      end
+
+      if(flight.business.num_of_seats < seats)
+        errors.add(:seats, "Seats exceeding the availability")
+      end
+
+      if(flight.economy.num_of_seats < seats)
+        errors.add(:seats, "exceeding the availability")
+      end
+
     end
 
 
