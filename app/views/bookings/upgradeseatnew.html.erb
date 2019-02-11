@@ -29,7 +29,6 @@
   <%= form.label :'First class' %>
   <%= @first.num_of_seats %>  seats available
   <% if (@business.num_of_seats > @booking.seats )%>
-  <% else %>
   <%= form.radio_button( :first_id, @first.id ) %>
   <% end %>
 </div>
