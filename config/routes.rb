@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
 
   resources :bookings
-
   resources :economies
   resources :businesses
   resources :firsts
@@ -31,9 +30,6 @@ Rails.application.routes.draw do
     resources :bookings
   end
 
-
-
-
   get 'password_resets/new'
   get 'password_resets/edit'
   root 'static_pages#home'
@@ -55,7 +51,7 @@ Rails.application.routes.draw do
 
   get '/findflight', to: 'flights#findflight'
   post '/findflight', to: 'flights#findflight'
-  
+
   get '/bookseat', to: 'bookings#bookseat'
   post '/bookseat', to: 'bookings#bookseat'
 
@@ -63,6 +59,9 @@ Rails.application.routes.draw do
   post '/seatselect', to: 'bookings#seatselect'
 
   get '/confirm', to: 'bookings#confirm'
+
+  get '/bookings/:booking_id/upgrade', to: 'bookings#upgradeseatnew', as: 'upgradeseat'
+  post '/bookings/:booking_id/upgrade', to: 'bookings#upgradeseatcreate'
 
   resources :users
   resources :account_activations, only: [:edit]

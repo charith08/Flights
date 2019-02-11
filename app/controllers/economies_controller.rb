@@ -41,6 +41,7 @@ class EconomiesController < ApplicationController
 
     respond_to do |format|
       if @economy.save
+        @economy.update_attributes(num_of_seats: @economy.seats_in_row * @economy.row )
         format.html { redirect_to @flight, notice: 'Economy was successfully created.' }
         format.json { render :show, status: :created, location: @economy }
       else

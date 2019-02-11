@@ -39,10 +39,10 @@ class FirstsController < ApplicationController
         @seat = @first.seats.create(seatno: @x)
         @x=@x+1
       end
-
      end
     respond_to do |format|
       if @first.save
+        @first.update_attributes(num_of_seats: @first.seats_in_row * @first.row )
         format.html { redirect_to @flight, notice: 'Firstclass is created.' }
         format.json { render :show, status: :created, location: @first }
       else

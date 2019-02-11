@@ -30,7 +30,7 @@
 </p>
 <p>
   <strong>Price in rupees:</strong>
-  <%= (@booking.seats) * (@first.first_price) %>
+  <%= (@seats.size) * (@first.first_price) %>
 </p>
 <% end %>
 
@@ -41,7 +41,7 @@
 </p>
 <p>
   <strong>Price in rupees:</strong>
-  <%= (@booking.seats) * (@business.business_price) %>
+  <%= (@seats.size) * (@business.business_price) %>
 </p>
 <% end %>
 
@@ -52,7 +52,7 @@
 
    <p>
      <strong>Price in rupees:</strong>
-     <%= (@booking.seats) * (@economy.economy_price) %>
+     <%= (@seats.size) * (@economy.economy_price) %>
    </p>
 </p>
 
@@ -64,7 +64,7 @@
   <%= @booking.pnr %>
 </p>
 
-<% if @seats %>
+<% if @seats.count >0 %>
 <p>
   <strong>Seat No:</strong>
   <% @seats.order("id").each do |s| %>
@@ -75,4 +75,15 @@
     <p> Book Seats with the provided PNR </p>
 <% end%>
 
+
+<% if (!@booking.business_id.nil?) %>
+<%= link_to 'Upgrade to First Class', upgradeseat_path(@booking) %>
+<%else%>
+
+<% if @booking.first_id %>
+
+<%else%>
+<%= link_to 'Upgrade my seat', upgradeseat_path(@booking) %>
+<%end%>
+<% end %>
 <%= link_to 'Back', bookings_path %>

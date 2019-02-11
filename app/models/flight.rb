@@ -4,12 +4,13 @@ class Flight < ApplicationRecord
   has_one :economy
   has_many :bookings
 
+
   validates :name, presence: true
   validates :ftype, presence: true
   validates :start_time, presence: true, if: :validstart
   validates :end_time, presence: true, if: :validend
-  validates :from, presence: true
-  validates :destination, presence: true
+  validates :from, presence: true, case_sensitive: false
+  validates :destination, presence: true, if: :samedestination, case_sensitive: false
 
 
 
@@ -26,5 +27,11 @@ class Flight < ApplicationRecord
     end
   end
 
+  def samedestination
+    if(from.casecmp(destination))
+      errors.add(:destination, "destination cannot be same as From ")
+    end
+  end
 
+  
 end

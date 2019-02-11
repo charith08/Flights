@@ -40,18 +40,20 @@
             <% if (@x % @business.seats_in_row == 0) %>
                <br>
             <%end%>
-            <% if (@x % 3 == 0 && @x % 6 != 0) %>
-               <div class="seatbreak"> </div>
-            <%end%>
+            <% if (@business.seats_in_row == 6 ) %>
+                <% if (@x % 3 == 0 && @x % 6 != 0) %>
+                   <div class="seatbreak"> </div>
+                <%end%>
+            <% end %>
         <% elsif @economy %>
             <% if (@x % @economy.seats_in_row == 0) %>
                <br>
                <% @y= @y + @economy.seats_in_row %>
                 <%end%>
                 <% if (@economy.seats_in_row == 10) %>
-               <% if ((@y -@x) % 3 == 0 && (@y -@x) % 6 != 0 && (@y -@x) % 9 != 0) || (@y -@x) % 7 ==0 %>
-                  <div class="seatbreak"> </div>
-               <%end%>
+                   <% if ((@y -@x) % 3 == 0 && (@y -@x) % 6 != 0 && (@y -@x) % 9 != 0) || (@y -@x) % 7 ==0 %>
+                      <div class="seatbreak"> </div>
+                   <%end%>
                <% end%>
         <% elsif @first%>
             <% if (@x % @first.seats_in_row == 0) %>

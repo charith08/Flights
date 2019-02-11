@@ -7,7 +7,6 @@ class CreateFlights < ActiveRecord::Migration[5.2]
       t.string :destination
       t.datetime :start_time
       t.datetime :end_time
-      t.string :fpnr
 
       t.timestamps
     end

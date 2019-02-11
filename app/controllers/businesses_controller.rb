@@ -42,6 +42,7 @@ class BusinessesController < ApplicationController
 
     respond_to do |format|
       if @business.save
+        @business.update_attributes(num_of_seats: @business.seats_in_row * @business.row )
         format.html { redirect_to @flight, notice: 'Business Class was successfully created.' }
         format.json { render :show, status: :created, location: @business }
       else

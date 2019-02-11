@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_10_125115) do
+ActiveRecord::Schema.define(version: 2019_02_10_181304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_02_10_125115) do
     t.datetime "updated_at", null: false
     t.integer "flight_id"
     t.integer "business_price"
+    t.integer "num_of_seats"
   end
 
   create_table "economies", force: :cascade do |t|
@@ -46,16 +47,17 @@ ActiveRecord::Schema.define(version: 2019_02_10_125115) do
     t.datetime "updated_at", null: false
     t.integer "flight_id"
     t.integer "economy_price"
+    t.integer "num_of_seats"
   end
 
   create_table "firsts", force: :cascade do |t|
     t.integer "row"
     t.integer "seats_in_row"
-    t.string "fcpnr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "flight_id"
     t.integer "first_price"
+    t.integer "num_of_seats"
   end
 
   create_table "flights", force: :cascade do |t|
@@ -65,7 +67,6 @@ ActiveRecord::Schema.define(version: 2019_02_10_125115) do
     t.string "destination"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string "fpnr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "base_price"

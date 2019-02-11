@@ -3,7 +3,6 @@ class CreateFirsts < ActiveRecord::Migration[5.2]
     create_table :firsts do |t|
       t.integer :row
       t.integer :seats_in_row
-      t.string :fcpnr
 
       t.timestamps
     end
