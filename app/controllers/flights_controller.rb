@@ -10,11 +10,15 @@ class FlightsController < ApplicationController
   end
 
   def findflight
-    @from = params[:from]
-    puts @from
-    puts '333333333333'
-    @flights = Flight.where(:from => params[:from], :destination => params[:destination])
+    @flights = Flight.where(:from => params[:from].downcase, :destination => params[:destination].downcase)
+    if (@flights.nil?)
+    else
+      flash[:info] = "Sorry no flights to that route yet"
+      redirect_to root_path
+    end
   end
+
+
   # GET /flights/1
   # GET /flights/1.json
   def show
@@ -49,10 +53,8 @@ class FlightsController < ApplicationController
   # POST /flights
   # POST /flights.json
   def create
-
     if is_admin?
     @flight = Flight.new(flight_params)
-
     respond_to do |format|
       if @flight.save
         format.html { redirect_to @flight, notice: 'Flight was successfully created.' }

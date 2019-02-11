@@ -3,15 +3,8 @@ attr_accessor :remember_token, :activation_token, :reset_token
 before_save   :downcase_email
 before_create :create_activation_digest
 has_many :bookings
-APPROVED_DOMAINS = ["commutatus.com"]
 
-def domain_check
-  unless APPROVED_DOMAINS.any? { |word| email.end_with?(word)}
-    errors.add(:email, "only commutatus domain")
-  end
-end
-
-validates :name, presence: true,if: :domain_check, length:  {maximum: 50 }
+validates :name, presence: true, length:  {maximum: 50 }
 VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 validates :email, presence: true, length: { maximum: 255 },
                 format: { with: VALID_EMAIL_REGEX },

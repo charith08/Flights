@@ -2,9 +2,6 @@
 <h1>Welcome to the Flight App</h1>
 <br><br>
 
-<% if logged_in? %>
-
-
 <%= form_tag(findflight_path, method: :get) do %>
    <strong><p> Enter Source </p></strong>
    <%= text_field_tag(:from, params[:from]) %>
@@ -14,7 +11,7 @@
    <%= submit_tag ("Search") %>
  <% end %>
 
-
+<% if logged_in? %>
 <% else %>
 <%= link_to "Sign up now!", signup_path, class: "button" %>
 <% end %>

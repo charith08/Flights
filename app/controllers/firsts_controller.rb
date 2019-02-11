@@ -1,6 +1,6 @@
 class FirstsController < ApplicationController
   #before_action :set_first, only: [:show, :edit, :update, :destroy]
-
+  before_action :logged_in_user
   # GET /firsts
   # GET /firsts.json
   def index
@@ -19,8 +19,6 @@ class FirstsController < ApplicationController
     @flight = Flight.find(params[:flight_id])
     @first = First.new
   end
-
-
 
   # GET /firsts/1/edit
   def edit

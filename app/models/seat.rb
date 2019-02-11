@@ -1,5 +1,2 @@
 class Seat < ApplicationRecord
-
-  
-
 end

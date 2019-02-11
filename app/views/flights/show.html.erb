@@ -25,24 +25,10 @@
   <%= readable_time(@flight.end_time) %>
 </p>
 
-
-
-<% puts 'aaaaaaaaaaaaa' %>
-<% puts @first%>
-<% puts @economy %>
-<% puts @business %>
-<% puts 'aaaaaaaaaaaaa' %>
-
-
-
-
   <% if @first %>
     <%= render 'firsts/show' %>
     <br>
-
-  <!--  <%= link_to 'Create Seats', flight_first_path(@flight) %> -->
           <% if @fseat.count>0 %>
-
           <% else %>
                <%= link_to 'Confirm Seat Config for First Class', new_flight_first_seat_path(@flight, @first) %>
           <% end %>

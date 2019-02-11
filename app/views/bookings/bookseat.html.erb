@@ -1,5 +1,4 @@
 
-
 <% if (!@booking.business_id.nil? ) %>
 <strong><p>Business Class</p></strong>
 <% elsif (!@booking.economy_id.nil? ) %>
@@ -19,7 +18,6 @@
 
   <tbody>
     <% @seats.each do |seat| %>
-
       <% if seat.available? %>
         <% if (@booking.selectseats.size < @booking.seats) %>
            <div class="seatboxtrue">

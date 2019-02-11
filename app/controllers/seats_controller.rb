@@ -5,12 +5,9 @@ class SeatsController < ApplicationController
   # GET /seats.json
   def index
     @booking = Booking.where(:pnr => params[:pnr])
-    puts @booking
-    puts 'aaaaaaaaaaaaaaaaaaa'
     if (@booking.first.economy_id == nil && @booking.first.first_id == nil)
        @seats = Seat.where(business_id:params[:business_id])
     elsif (@booking.first.business_id == nil && @booking.first.first_id == nil)
-       puts params[:economy_id]
        @seats = Seat.where(:economy_id =>params[:economy_id])
      elsif (@booking.first.business_id == nil && @booking.first.economy_id == nil)
         @x = @booking.first.first_id
@@ -48,8 +45,6 @@ class SeatsController < ApplicationController
   # POST /seats
   # POST /seats.json
   def create
-
-
     respond_to do |format|
       if @seat.save
         format.html { redirect_to flights_path(@flight), notice: 'Seat was successfully created.' }

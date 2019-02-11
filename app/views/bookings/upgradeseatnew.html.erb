@@ -1,3 +1,5 @@
+<h2> Choose Class </h2>
+
 <%= form_for(@booking, url: upgradeseat_path, method: "post") do |form| %>
 <% if @booking.errors.any? %>
     <div id="error_explanation">
@@ -11,12 +13,7 @@
     </div>
   <% end %>
 
-  <% puts '9999999999999999'%>
-  <% puts @booking.id %>
-  <% puts @booking.flight_id %>
 
-
-  <% puts @flight %>
 
   <%= form.hidden_field :user_id, value: current_user.id %>
   <%= form.hidden_field :flight_id, value: @booking.flight_id %>
@@ -27,27 +24,40 @@
 
 
 <div class="field">
-  <% if (@booking.flight.first.num_of_seats > @booking.seats) %>
+
+  <div class="flightclass">
   <%= form.label :'First class' %>
+  <%= @first.num_of_seats %>  seats available
+  <% if (@business.num_of_seats > @booking.seats )%>
+  <% else %>
   <%= form.radio_button( :first_id, @first.id ) %>
   <% end %>
-  <% puts '9999999999999999'%>
-  <% puts @first.id %>
-  <% puts @business.id %>
+</div>
+
+
 
   <% if(!@booking.business_id.nil?) %>
+
   <% else %>
-      <% if (@booking.flight.business.num_of_seats > @booking.seats) %>
+          <div class="flightclass">
           <%= form.label :'Business class' %>
+          <%= @business.num_of_seats %>  seats available
+          <% if (@booking.flight.business.num_of_seats > @booking.seats) %>
+          <% if (@business.num_of_seats > @booking.seats )%>
           <%= form.radio_button( :business_id, @business.id )  %>
           <%end%>
+          <%end%>
+        </div>
   <% end %>
 
 
   </div>
 
-
+<% if (@business.num_of_seats > @booking.seats )%>
+<% else %>
   <div class="actions">
     <%= form.submit %>
   </div>
+  <% end %>
+
 <% end %>

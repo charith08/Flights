@@ -11,7 +11,6 @@ class BookingsController < ApplicationController
   # GET /bookings/1.json
   def show
     @seats= Seat.where(:booking_id => @booking.id)
-
     if (!@booking.business_id.nil? )
        @business = Business.where(id: @booking.business_id).first
     elsif (!@booking.economy_id.nil? )
@@ -20,6 +19,7 @@ class BookingsController < ApplicationController
       @first = First.where(id: @booking.first_id).first
     end
   end
+
 
   def userbooking
     @bookings = Booking.where(:user_id=>current_user.id )
@@ -45,10 +45,8 @@ class BookingsController < ApplicationController
          elsif (!@booking.first_id.nil? )
                   @seats = Seat.where(first_id: @booking.first_id).order("id")
                   @first = First.where(flight_id: @booking.flight_id).first
-
          end
       end
-
    end
 
 
@@ -66,39 +64,18 @@ class BookingsController < ApplicationController
 
    def confirm
      @booking = Booking.find(params[:booking_id])
-
      @seats = Seat.where(:seat_id => params[:id])
       @y = @booking.selectseats.count
-      puts @y
-
      if (@y > @booking.seats || @y < @booking.seats)
        flash[:info] = "You have selected more/less seats"
        redirect_to @booking
      else
        @booking.update_column(:booked, true)
-       puts 'aaaaaaaaaaaa14522222aa'
        flash[:success]="Booking has been successful"
         @booking.selectseats.each do |i|
           @selectedseat = Seat.find(i.seatnumber)
-
           @selectedseat.update_attributes(:booking_id => @booking.id, :available => false)
         end
-
-        if (!@booking.business_id.nil? )
-          @business = Business.where(:flight_id => @booking.flight_id).last
-          @x = @business.num_of_seats - @y
-          @business.update_column(:num_of_seats, @x)
-        elsif (!@booking.economy_id.nil? )
-          @economy = Economy.where(:flight_id => @booking.flight_id).last
-          @x = @economy.num_of_seats - @y
-          @economy.update_column(:num_of_seats, @x)
-        elsif (!@booking.first_id.nil? )
-          @first = First.where(:flight_id => @booking.flight_id).last
-          @x = @first.num_of_seats - @y
-          @first.update_column(:num_of_seats, @x)
-        end
-
-
        redirect_to @booking
      end
 
@@ -115,8 +92,6 @@ class BookingsController < ApplicationController
 
   # GET /bookings/1/edit
   def edit
-
-
   end
 
   # POST /bookings
@@ -124,9 +99,22 @@ class BookingsController < ApplicationController
   def create
     @flight = Flight.find(params[:flight_id])
     @booking = @flight.bookings.create(booking_params)
-
+    @y = @booking.seats
     respond_to do |format|
       if @booking.save
+        if (!@booking.business_id.nil? )
+          @business = Business.where(:flight_id => @booking.flight_id).last
+          @x = @business.num_of_seats - @y
+          @business.update_column(:num_of_seats, @x)
+        elsif (!@booking.economy_id.nil? )
+          @economy = Economy.where(:flight_id => @booking.flight_id).last
+          @x = @economy.num_of_seats - @y
+          @economy.update_column(:num_of_seats, @x)
+        elsif (!@booking.first_id.nil? )
+          @first = First.where(:flight_id => @booking.flight_id).last
+          @x = @first.num_of_seats - @y
+          @first.update_column(:num_of_seats, @x)
+        end
         format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
       else
@@ -142,23 +130,45 @@ class BookingsController < ApplicationController
     @flight = Flight.where(:id => @booking.flight_id ).last
     @first = First.where(:flight_id => @flight.id).last
     @business = Business.where(:flight_id => @flight.id).last
-    puts @first
-    puts '77777777777'
     @business = @flight.business
-    puts @business
-    puts '777777777778888'
     @economy = @flight.economy
   end
 
   def upgradeseatcreate
     @previous_booking = Booking.find(params[:booking_id])
     @flight = Flight.where(:id => @previous_booking.flight_id ).last
-    puts @flight.id
-    puts Flight.where(:id => @previous_booking.flight_id ).last
-    puts '777777777778888'
+    @y = @previous_booking.seats
+    if (!@previous_booking.business_id.nil? )
+      @previous_booking = Business.where(:flight_id => @previous_booking.flight_id).last
+      @x = @business.num_of_seats + @y
+      @business.update_column(:num_of_seats, @x)
+    elsif (!@previous_booking.economy_id.nil? )
+      @economy = Economy.where(:flight_id => @previous_booking.flight_id).last
+      @x = @economy.num_of_seats + @y
+      @economy.update_column(:num_of_seats, @x)
+    elsif (!@previous_booking.first_id.nil? )
+      @first = First.where(:flight_id => @previous_booking.flight_id).last
+      @x = @first.num_of_seats + @y
+      @first.update_column(:num_of_seats, @x)
+    end
+
     @booking = @flight.bookings.create(booking_params)
+    @z = @booking.seats
     respond_to do |format|
       if @booking.save
+        if (!@booking.business_id.nil? )
+          @business = Business.where(:flight_id => @booking.flight_id).last
+          @x = @business.num_of_seats - @z
+          @business.update_column(:num_of_seats, @x)
+        elsif (!@booking.economy_id.nil? )
+          @economy = Economy.where(:flight_id => @booking.flight_id).last
+          @x = @economy.num_of_seats - @z
+          @economy.update_column(:num_of_seats, @x)
+        elsif (!@booking.first_id.nil? )
+          @first = First.where(:flight_id => @booking.flight_id).last
+          @x = @first.num_of_seats - @z
+          @first.update_column(:num_of_seats, @x)
+        end
         @previous_booking.destroy
         format.html { redirect_to bookings_path, notice: 'Your Seat is successfully changed .' }
         format.json { render :show, status: :created, location: @booking }

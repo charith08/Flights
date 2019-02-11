@@ -1,6 +1,6 @@
 class EconomiesController < ApplicationController
   before_action :set_economy, only: [:show, :edit, :update, :destroy]
-
+  before_action :logged_in_user
   # GET /economies
   # GET /economies.json
   def index
