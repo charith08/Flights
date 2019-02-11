@@ -13,8 +13,6 @@
     </div>
   <% end %>
 
-
-
   <%= form.hidden_field :user_id, value: current_user.id %>
   <%= form.hidden_field :flight_id, value: @booking.flight_id %>
   <%= form.hidden_field :name, value: @booking.name %>
@@ -52,11 +50,10 @@
 
   </div>
 
-<% if (@business.num_of_seats > @booking.seats )%>
-<% else %>
+<% if (@business.num_of_seats > @booking.seats || @first.num_of_seats > @booking.seats )%>
   <div class="actions">
     <%= form.submit %>
   </div>
-  <% end %>
+<% end %>
 
 <% end %>

@@ -139,7 +139,7 @@ class BookingsController < ApplicationController
     @flight = Flight.where(:id => @previous_booking.flight_id ).last
     @y = @previous_booking.seats
     if (!@previous_booking.business_id.nil? )
-      @previous_booking = Business.where(:flight_id => @previous_booking.flight_id).last
+      @business = Business.where(:flight_id => @previous_booking.flight_id).last
       @x = @business.num_of_seats + @y
       @business.update_column(:num_of_seats, @x)
     elsif (!@previous_booking.economy_id.nil? )
