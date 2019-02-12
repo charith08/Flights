@@ -88,8 +88,8 @@ class BookingsController < ApplicationController
   def new
     @flight = Flight.find(params[:flight_id])
     @business1 = Business.where(flight_id: @flight.id).first
-   @economy1 = Economy.where(flight_id: @flight.id).first
-   @first1 = First.where(flight_id: @flight.id).first
+    @economy1 = Economy.where(flight_id: @flight.id).first
+    @first1 = First.where(flight_id: @flight.id).first
     @booking = Booking.new
   end
 

@@ -374,6 +374,11 @@ div {
   display: inline-block;
   border: 1px solid black;
   padding: 5px;
+  font-size: 15px;
+}
+
+.font20 {
+  font-size: 20px;
 }
 
 .padding {

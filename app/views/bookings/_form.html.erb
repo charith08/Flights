@@ -29,7 +29,7 @@
 
   <div class="field">
   <div class="flightclass">
-    <%= form.label :'First class' %>
+     <div class="font20">  <%= form.label :'First class' %> </div>
     <%= @first1.num_of_seats %>  seats available
     <% if (@first1.num_of_seats <=0 )%>
     <% else %>
@@ -37,7 +37,7 @@
     <% end %>
   </div>
   <div class="flightclass">
-    <%= form.label :'Business class' %>
+    <div class="font20"><%= form.label :'Business class' %> </div>
     <%= @business1.num_of_seats %>  seats available
     <% if (@business1.num_of_seats <=0 )%>
     <% else %>
@@ -45,7 +45,7 @@
     <% end %>
   </div>
    <div class="flightclass">
-    <%= form.label :'Economy class' %>
+    <div class="font20"><%= form.label :'Economy class' %> </div>
     <%= @economy1.num_of_seats %>  seats available
     <% if (@economy1.num_of_seats <=0 )%>
     <% else %>
