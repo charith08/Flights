@@ -29,7 +29,10 @@ class BookingsController < ApplicationController
    def bookseat
      @pnr = params[:pnr]
      @booking = Booking.where(:pnr => params[:pnr]).last
-     if (@booking.booked == true)
+     if @booking.nil?
+       flash[:info] = "Enter a valid PNR number"
+       redirect_to bookings_path
+     elsif (@booking.booked == true)
        flash[:info] = "Seats are already booked"
        redirect_back(fallback_location: root_path)
      else
