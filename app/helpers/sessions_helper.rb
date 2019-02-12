@@ -60,7 +60,15 @@ module SessionsHelper
     end
   end
 
+  def is_admin?
+    signed_in? ? current_user.admin : false
+  end
 
+  def admin
+    unless is_admin?
+      redirect_to root_url
+    end
+  end
 
 
 

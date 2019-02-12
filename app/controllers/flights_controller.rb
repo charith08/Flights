@@ -1,7 +1,7 @@
 class FlightsController < ApplicationController
   before_action :set_flight, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user
-  #before_action :is_admin?, only: [:new, :edit, :create, :update, :destroy]
+  before_action :admin, only: [:new, :edit, :create, :update, :destroy]
   include SessionsHelper
   # GET /flights
   # GET /flights.json
@@ -13,7 +13,6 @@ class FlightsController < ApplicationController
     @from = params[:from].downcase
     @destination = params[:destination].downcase
     @flights = Flight.where(:from => @from, :destination => @destination)
-
     if (@flights.exists?)
       render :findflight
     else
@@ -43,12 +42,8 @@ class FlightsController < ApplicationController
 
   # GET /flights/new
   def new
-    if is_admin?
     @flight = Flight.new
-  else
-    redirect_to root_path
-  end
-  end
+end
 
   # GET /flights/1/edit
   def edit
@@ -57,7 +52,6 @@ class FlightsController < ApplicationController
   # POST /flights
   # POST /flights.json
   def create
-    if is_admin?
     @flight = Flight.new(flight_params)
     respond_to do |format|
       if @flight.save
@@ -68,9 +62,6 @@ class FlightsController < ApplicationController
         format.json { render json: @flight.errors, status: :unprocessable_entity }
       end
     end
-  else
-    redirect_to root_path
-  end
   end
 
   # PATCH/PUT /flights/1
@@ -90,15 +81,11 @@ class FlightsController < ApplicationController
   # DELETE /flights/1
   # DELETE /flights/1.json
   def destroy
-    if is_admin?
     @flight.destroy
     respond_to do |format|
       format.html { redirect_to flights_url, notice: 'Flight was successfully destroyed.' }
       format.json { head :no_content }
     end
-  else
-    redirect_to root_path
-  end
   end
 
   private
