@@ -20,9 +20,9 @@ class Booking < ApplicationRecord
 
     def validseat
 
-      if(seats == 0 || seats ==nil )
+      if(seats == 0 || seats ==nil || seats < 0 )
         errors.add(:seats, "Number of seats should be atleast 1")
-      end
+      else
 
       if(flight.first.num_of_seats < seats)
         errors.add(:seats, "Seats exceeding the availability")
@@ -35,7 +35,7 @@ class Booking < ApplicationRecord
       if(flight.economy.num_of_seats < seats)
         errors.add(:seats, "exceeding the availability")
       end
-
+    end
     end
 
 

@@ -24,25 +24,25 @@
 
 
 <% if @booking.first_id %>
-<p>
-  <strong>Class:</strong>
-  First Class
-</p>
-<p>
-  <strong>Price in rupees:</strong>
-  <%= (@booking.seats) * (@first.first_price) %>
-</p>
+      <p>
+        <strong>Class:</strong>
+        First Class
+      </p>
+      <p>
+        <strong>Price in rupees:</strong>
+        <%= (@booking.seats) * (@first.first_price) %>
+      </p>
 <% end %>
 
 <% if @booking.business_id %>
-<p>
-  <strong>Class:</strong>
-   Business Class
-</p>
-<p>
-  <strong>Price in rupees:</strong>
-  <%= (@booking.seats) * (@business.business_price) %>
-</p>
+      <p>
+        <strong>Class:</strong>
+         Business Class
+      </p>
+      <p>
+        <strong>Price in rupees:</strong>
+        <%= (@booking.seats) * (@business.business_price) %>
+      </p>
 <% end %>
 
 <% if @booking.economy_id %>
@@ -55,8 +55,6 @@
      <%= (@booking.seats) * (@economy.economy_price) %>
    </p>
 </p>
-
-
 <% end %>
 
 <p>
@@ -71,22 +69,21 @@
     <%= s.seatno%> <%= ','%>
   <% end %>
 </p>
-<% if (!@booking.business_id.nil?) %>
-
-<%= link_to 'Upgrade to First Class', upgradeseat_path(@booking) %>
-
-<%else%>
-
-<% if @booking.first_id %>
-
-<%else%>
-<%= link_to 'Upgrade my seat', upgradeseat_path(@booking) %>
-<%end%>
-<% end %>
-<% else %>
+      <% if (!@booking.business_id.nil?) %>
+            <% if (!@first1.nil?) %>
+              <%= link_to 'Upgrade to First Class', upgradeseat_path(@booking) %>
+            <% end %>
+      <%else%>
+            <% if @booking.first_id %>
+            <%else%>
+              <% if (!@first1.nil? || !@business.nil?) %>
+                 <%= link_to 'Upgrade my seat', upgradeseat_path(@booking) %>
+            <% end %>
+            <%end%>
+     <% end %>
+  <% else %>
     <p> Book Seats with the provided PNR </p>
 <% end%>
-
 
 
 <%= link_to 'Back', bookings_path %>

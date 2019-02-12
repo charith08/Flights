@@ -18,6 +18,10 @@ class BookingsController < ApplicationController
     elsif (!@booking.first_id.nil? )
       @first = First.where(id: @booking.first_id).first
     end
+      @flight = Flight.where(id: @booking.flight_id).first
+    @business1 = Business.where(flight_id: @flight.id).first
+   @economy1 = Economy.where(flight_id: @flight.id).first
+   @first1 = First.where(flight_id: @flight.id).first
   end
 
 

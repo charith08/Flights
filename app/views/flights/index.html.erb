@@ -15,27 +15,39 @@
   </thead>
 
   <tbody>
-    <% @flights.each do |flight| %>
-      <tr>
-        <td><%= flight.name %><%= " " %><%= flight.ftype %></td>
-        <td><%= flight.from %></td>
-        <td><%= flight.destination %></td>
-        <td><%= readable_time(flight.start_time) %></td>
-        <td><%= readable_time(flight.end_time) %></td>
-        <% if is_admin? %>
-        <td><%= link_to 'Show', flight %></td>
-        <td><%= link_to 'Edit', edit_flight_path(flight) %></td>
-        <td><%= link_to 'Destroy', flight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% else %>
-        <td><%= link_to 'Book this Flight', new_flight_booking_path(:flight_id => flight.id) %></td>
+
+     <% if is_admin? %>
+         <% @flights.each do |flight| %>
+           <tr>
+             <td><%= flight.name %><%= " " %><%= flight.ftype %></td>
+             <td><%= flight.from %></td>
+             <td><%= flight.destination %></td>
+             <td><%= readable_time(flight.start_time) %></td>
+             <td><%= readable_time(flight.end_time) %></td>
+             <td><%= link_to 'Show', flight %></td>
+             <td><%= link_to 'Edit', edit_flight_path(flight) %></td>
+             <td><%= link_to 'Destroy', flight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+           </tr>
         <% end %>
-      </tr>
-    <% end %>
+     <% else%>
+          <% @flights.each do |flight| %>
+            <tr>
+              <% if (flight.business.nil? || flight.first.nil? || flight.economy.nil? ) %>
+              <% else %>
+              <td><%= flight.name %><%= " " %><%= flight.ftype %></td>
+              <td><%= flight.from %></td>
+              <td><%= flight.destination %></td>
+              <td><%= readable_time(flight.start_time) %></td>
+              <td><%= readable_time(flight.end_time) %></td>
+              <td><%= link_to 'Book this Flight', new_flight_booking_path(:flight_id => flight.id) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <%end%>
   </tbody>
 </table>
-
 <br>
 
 <% if is_admin? %>
-<%= link_to 'New Flight', new_flight_path %>
+   <%= link_to 'New Flight', new_flight_path %>
 <% end %>

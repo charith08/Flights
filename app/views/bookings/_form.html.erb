@@ -1,8 +1,8 @@
 <%= form_for @booking, url: flight_bookings_path do |form| %>
+
   <% if booking.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
-
       <ul>
       <% booking.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -24,34 +24,46 @@
     <%= form.text_field :email %>
   </div>
 
-
   <h3> Choose a Class </h3>
 
   <div class="field">
-  <div class="flightclass">
-     <div class="font20">  <%= form.label :'First class' %> </div>
-    <%= @first1.num_of_seats %>  seats available
-    <% if (@first1.num_of_seats <=0 )%>
+
+    <% if @first1.nil? %>
     <% else %>
-    <%= form.radio_button( :first_id, @first1.id ) %>
+    <div class="flightclass">
+        <div class="font20">  <%= form.label :'First class' %> </div>
+        <%= @first1.num_of_seats %>  seats available
+           <% if (@first1.num_of_seats <=0 )%>
+           <% else %>
+           <%= form.radio_button( :first_id, @first1.id ) %>
+          <% end %>
+    </div>
     <% end %>
-  </div>
-  <div class="flightclass">
-    <div class="font20"><%= form.label :'Business class' %> </div>
-    <%= @business1.num_of_seats %>  seats available
-    <% if (@business1.num_of_seats <=0 )%>
+
+
+    <% if @business1.nil? %>
     <% else %>
-    <%= form.radio_button( :business_id, @business1.id)  %>
+          <div class="flightclass">
+          <div class="font20"><%= form.label :'Business class' %> </div>
+          <%= @business1.num_of_seats %>  seats available
+              <% if (@business1.num_of_seats <=0 )%>
+              <% else %>
+              <%= form.radio_button( :business_id, @business1.id)  %>
+              <% end %>
+          </div>
     <% end %>
-  </div>
+
+   <% if @economy1.nil? %>
+   <% else %>
    <div class="flightclass">
     <div class="font20"><%= form.label :'Economy class' %> </div>
     <%= @economy1.num_of_seats %>  seats available
-    <% if (@economy1.num_of_seats <=0 )%>
-    <% else %>
-    <%= form.radio_button( :economy_id, @economy1.id ) %>
-      <% end %>
+        <% if (@economy1.num_of_seats <=0 )%>
+        <% else %>
+        <%= form.radio_button( :economy_id, @economy1.id ) %>
+        <% end %>
   </div>
+  <%end%>
 
 
   <div class="field">

@@ -23,37 +23,41 @@
 
 <div class="field">
 
+
+ <% if (!@first.nil?) %>
   <div class="flightclass">
-  <%= form.label :'First class' %>
-  <%= @first.num_of_seats %>  seats available
-  <% if (@business.num_of_seats > @booking.seats )%>
-  <%= form.radio_button( :first_id, @first.id ) %>
-  <% end %>
-</div>
+      <%= form.label :'First class' %>
+      <%= @first.num_of_seats %>  seats available
+      <% if (@first.num_of_seats > @booking.seats )%>
+      <%= form.radio_button( :first_id, @first.id ) %>
+      <% end %>
+  </div>
+<% end %>
 
 
-
-  <% if(!@booking.business_id.nil?) %>
-
-  <% else %>
+  <% if(!@business.nil?) %>
+        <% if (@booking.business_id.nil?) %>
           <div class="flightclass">
           <%= form.label :'Business class' %>
           <%= @business.num_of_seats %>  seats available
           <% if (@booking.flight.business.num_of_seats > @booking.seats) %>
-          <% if (@business.num_of_seats > @booking.seats )%>
-          <%= form.radio_button( :business_id, @business.id )  %>
-          <%end%>
+            <% if (@business.num_of_seats > @booking.seats )%>
+              <%= form.radio_button( :business_id, @business.id )  %>
+            <%end%>
           <%end%>
         </div>
+        <% end %>
   <% end %>
 
 
   </div>
 
-<% if (@business.num_of_seats > @booking.seats || @first.num_of_seats > @booking.seats )%>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+<% if(!@business.nil? ) %>
 
+    <% if (@business.num_of_seats > @booking.seats || @first.num_of_seats > @booking.seats )%>
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+<% end %>
+<% end %>
 <% end %>

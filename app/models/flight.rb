@@ -1,8 +1,8 @@
 class Flight < ApplicationRecord
-  has_one :first
-  has_one :business
-  has_one :economy
-  has_many :bookings
+  has_one :first, dependent: :destroy
+  has_one :business, dependent: :destroy
+  has_one :economy, dependent: :destroy
+  has_many :bookings, dependent: :destroy
   before_save   :downcase_source_and_destination
   validates :name, presence: true
   validates :ftype, presence: true
