@@ -57,12 +57,12 @@ module SessionsHelper
     unless logged_in?
       store_location
      redirect_to login_url
-
     end
   end
 
 
-  
+
+
 
 
 end

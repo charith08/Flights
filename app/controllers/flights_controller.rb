@@ -10,8 +10,12 @@ class FlightsController < ApplicationController
   end
 
   def findflight
-    @flights = Flight.where(:from => params[:from].downcase, :destination => params[:destination].downcase)
-    if (@flights.nil?)
+    @from = params[:from].downcase
+    @destination = params[:destination].downcase
+    @flights = Flight.where(:from => @from, :destination => @destination)
+
+    if (@flights.exists?)
+      render :findflight
     else
       flash[:info] = "Sorry no flights to that route yet"
       redirect_to root_path

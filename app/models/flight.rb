@@ -3,7 +3,7 @@ class Flight < ApplicationRecord
   has_one :business
   has_one :economy
   has_many :bookings
-
+  before_save   :downcase_source_and_destination
   validates :name, presence: true
   validates :ftype, presence: true
   validates :start_time, presence: true, if: :validstart
@@ -30,5 +30,9 @@ class Flight < ApplicationRecord
     end
   end
 
+  def downcase_source_and_destination
+    self.from = from.downcase
+    self.destination = destination.downcase
+  end
 
 end
